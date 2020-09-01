@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <?xml version="1.0" standalone="no"?>
+  <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <style></style>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body></body>
+<script>
+  // 图片地址
+  var img_url = [
+    "http://www.baidu.com/img/flexible/logo/pc/result.png",
+    "http://www.baidu.com/img/flexible/logo/pc/result.png",
+    "http://www.baidu.com/img/flexible/logo/pc/result.png",
+    "http://www.baidu.com/img/flexible/logo/pc/result.png",
+    "http://www.baidu.com/img/flexible/logo/pc/result.png",
+  ];
+  let imgInfoArr = [];
+  img_url.forEach((item, index) => {
+    let img = new Image();
+    img.src = item
+    let res = {}
+    img.onload = function () {
+      res = {
+        width: this.width,
+        height: this.height
+      }
+      imgInfoArr.push(res)
+      if (imgInfoArr.length > img_url.length - 1) {
+        doPost();
+      }
+    }
+
+  });
+  function doPost() {
+    axios.post("http://test.com/", imgInfoArr).then((res) => {
+      console.log("发送成功");
+    });
+  }
+</script>
+
+</html>
